@@ -59,17 +59,11 @@ func GetJobStatus(c *gin.Context) {
 		return
 	}
 
-	// If job failed, include error details.
-	if job.Status == "failed" {
-		c.JSON(http.StatusOK, gin.H{
-			"status": job.Status,
-			"job_id": job.ID,
-			"error":  job.Errors,
-		})
-	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"status": job.Status,
-			"job_id": job.ID,
-		})
+	resp := models.JobStatusResponse{
+		Status: job.Status,
+		JobID:  job.ID,
+		Error:  job.Errors, // or omit if nil
 	}
+
+	c.JSON(http.StatusOK, resp)
 }

@@ -10,6 +10,13 @@ type Job struct {
 }
 
 type JobError struct {
-	StoreID string `bson:"store_id"`
-	Error   string `bson:"error"`
+	StoreID string `bson:"store_id" json:"store_id"`
+	Error   string `bson:"error" json:"error"`
 }
+
+type JobStatusResponse struct {
+	Status string      `json:"status"`
+	JobID  string      `json:"job_id"`
+	Error  []JobError  `json:"error,omitempty"`
+}
+
