@@ -2,8 +2,8 @@ package data
 
 import (
     "context"
-    "database"
-    "models"
+    "storeit/database"
+    "storeit/models"
 )
 
 func CreateJob(job models.Job) error {
