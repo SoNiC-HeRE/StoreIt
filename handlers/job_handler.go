@@ -14,29 +14,56 @@ import (
 	"storeit/services" // Contains ProcessJob
 )
 
+// JobStatusResponse defines the structure for the job status API response.
+type JobStatusResponse struct {
+	Status string            `json:"status"`
+	JobID  string            `json:"job_id"`
+	Error  []models.JobError `json:"error,omitempty"`
+}
+
 // SubmitJob handles the job submission endpoint.
 func SubmitJob(c *gin.Context) {
 	var request struct {
-		Count  int `json:"count"`
-		Visits []struct {
-			StoreID   string   `json:"store_id"`
-			ImageURLs []string `json:"image_url"`
-			VisitTime string   `json:"visit_time"`
-		} `json:"visits"`
+		Count  int           `json:"count"`
+		Visits []models.Visit `json:"visits"`
 	}
 
-	if err := c.BindJSON(&request); err != nil || len(request.Visits) != request.Count {
+	// Bind the incoming JSON.
+	if err := c.BindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
 		return
 	}
 
+	// Check that the count matches the number of visits.
+	if len(request.Visits) != request.Count {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Count does not match the number of visits"})
+		return
+	}
+
+	// Validate each visit: store_id and image_url must be provided.
+	for i, visit := range request.Visits {
+		if visit.StoreID == "" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "store_id is mandatory"})
+			return
+		}
+		if len(visit.ImageURLs) == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "image_url is mandatory for each visit"})
+			return
+		}
+		// If visit_time is empty, fill with current timestamp in RFC3339 format.
+		if visit.VisitTime == "" {
+			request.Visits[i].VisitTime = time.Now().Format(time.RFC3339)
+		}
+	}
+
+	// Create a new job record.
 	job := models.Job{
 		ID:        uuid.NewString(),
 		Status:    "ongoing",
 		CreatedAt: time.Now(),
 	}
 
-	// Create job record in the database.
+	// Insert the job record into the database.
 	if err := data.CreateJob(job); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create job"})
 		return
@@ -55,15 +82,14 @@ func GetJobStatus(c *gin.Context) {
 
 	err := db.JobCollection.FindOne(context.TODO(), bson.M{"_id": jobID}).Decode(&job)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Job not found"})
+		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
 
-	resp := models.JobStatusResponse{
+	resp := JobStatusResponse{
 		Status: job.Status,
 		JobID:  job.ID,
-		Error:  job.Errors, // or omit if nil
+		Error:  job.Errors,
 	}
-
 	c.JSON(http.StatusOK, resp)
 }
