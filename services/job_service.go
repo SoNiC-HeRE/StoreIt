@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// ProcessImage downloads an image and computes its perimeter.
 func ProcessImage(imgURL string) (int, error) {
 	response, err := http.Get(imgURL)
 	if err != nil {
