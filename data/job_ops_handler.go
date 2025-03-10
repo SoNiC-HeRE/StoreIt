@@ -2,8 +2,8 @@ package repository
 
 import (
     "context"
-    "retail_pulse/db"
-    "retail_pulse/models"
+    "database"
+    "models"
 )
 
 func CreateJob(job models.Job) error {

@@ -2,9 +2,9 @@ package main
 
 import (
     "log"
-    "retail_pulse/config"
-    "retail_pulse/db"
-    "retail_pulse/handlers"
+    "config"
+    "database"
+    "handlers"
 
     "github.com/gin-gonic/gin"
 )

@@ -3,7 +3,7 @@ package db
 import (
     "context"
     "log"
-    "retail_pulse/config"
+    "config"
     "go.mongodb.org/mongo-driver/mongo"
     "go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -18,7 +18,7 @@ func ConnectMongoDB() {
         log.Fatal("MongoDB connection failed:", err)
     }
 
-    database := client.Database("retail_pulse")
+    database := client.Database("storeit")
     JobCollection = database.Collection("jobs")
     ImageCollection = database.Collection("images")
 

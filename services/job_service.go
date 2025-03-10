@@ -7,7 +7,7 @@ import (
     "image"
     _ "image/jpeg"
     _ "image/png"
-    "retail_pulse/repository"
+    "data"
 )
 
 func ProcessImage(imgURL string) (int, error) {

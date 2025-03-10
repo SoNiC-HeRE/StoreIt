@@ -4,8 +4,8 @@ import (
     "context"
     "net/http"
     "github.com/gin-gonic/gin"
-    "retail_pulse/models"
-    "retail_pulse/repository"
+    "models"
+    "data"
 )
 
 func SubmitJob(c *gin.Context) {
