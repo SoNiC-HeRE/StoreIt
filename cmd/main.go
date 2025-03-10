@@ -2,9 +2,9 @@ package main
 
 import (
     "log"
-    "config"
-    "database"
-    "handlers"
+    "storeit/config"
+    "storeit/database"
+    "storeit/handlers"
 
     "github.com/gin-gonic/gin"
 )

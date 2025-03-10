@@ -4,8 +4,8 @@ import (
     "context"
     "net/http"
     "github.com/gin-gonic/gin"
-    "models"
-    "data"
+    "storeit/models"
+    "storeit/data"
 )
 
 func SubmitJob(c *gin.Context) {

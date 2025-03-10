@@ -7,7 +7,7 @@ import (
     "image"
     _ "image/jpeg"
     _ "image/png"
-    "data"
+    "storeit/data"
 )
 
 func ProcessImage(imgURL string) (int, error) {
