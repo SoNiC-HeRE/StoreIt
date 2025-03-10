@@ -11,6 +11,7 @@ import (
 
 var JobCollection *mongo.Collection
 var ImageCollection *mongo.Collection
+var StoreCollection *mongo.Collection
 
 func ConnectMongoDB() {
 	clientOptions := options.Client().ApplyURI(config.GetMongoURI())
@@ -22,6 +23,7 @@ func ConnectMongoDB() {
 	database := client.Database("storeit")
 	JobCollection = database.Collection("jobs")
 	ImageCollection = database.Collection("images")
+	StoreCollection = database.Collection("store_master")
 
 	log.Println("Connected to MongoDB")
 }
