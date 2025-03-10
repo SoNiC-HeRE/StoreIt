@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// DownloadImage downloads an image from a given URL and returns its dimensions
+// DownloadImage downloads an image from a given URL and returns its dimensions.
 func DownloadImage(url string) (int, int, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -26,12 +26,12 @@ func DownloadImage(url string) (int, int, error) {
 	return img.Width, img.Height, nil
 }
 
-// CalculatePerimeter computes the perimeter of an image
+// CalculatePerimeter computes the perimeter of an image.
 func CalculatePerimeter(width, height int) float64 {
 	return 2 * float64(width+height)
 }
 
-// SimulateProcessingDelay adds a random delay between 0.1 to 0.4 seconds
+// SimulateProcessingDelay adds a random delay between 0.1 to 0.4 seconds.
 func SimulateProcessingDelay() {
 	delay := time.Duration(rand.Intn(300)+100) * time.Millisecond
 	time.Sleep(delay)

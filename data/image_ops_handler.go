@@ -11,13 +11,13 @@ import (
 
 // Image represents an image stored in MongoDB
 type Image struct {
-	ID         string  `bson:"_id,omitempty"`
-	JobID      string  `bson:"job_id"`
-	StoreID    string  `bson:"store_id"`
-	ImageURL   string  `bson:"image_url"`
-	Perimeter  float64 `bson:"perimeter"`
-	Processed  bool    `bson:"processed"`
-	CreatedAt  time.Time `bson:"created_at"`
+	ID        string    `bson:"_id,omitempty"`
+	JobID     string    `bson:"job_id"`
+	StoreID   string    `bson:"store_id"`
+	ImageURL  string    `bson:"image_url"`
+	Perimeter float64   `bson:"perimeter"`
+	Processed bool      `bson:"processed"`
+	CreatedAt time.Time `bson:"created_at"`
 }
 
 // ImageStorage handles image-related DB operations
