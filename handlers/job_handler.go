@@ -48,7 +48,7 @@ func SubmitJob(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"job_id": job.ID})
 }
 
-// GetJobStatus returns the status of a given job.
+// GetJobStatus returns the status (and errors, if any) of a given job.
 func GetJobStatus(c *gin.Context) {
 	jobID := c.Query("jobid")
 	var job models.Job
@@ -59,5 +59,17 @@ func GetJobStatus(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": job.Status, "job_id": job.ID})
+	// If job failed, include error details.
+	if job.Status == "failed" {
+		c.JSON(http.StatusOK, gin.H{
+			"status": job.Status,
+			"job_id": job.ID,
+			"error":  job.Errors,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"status": job.Status,
+			"job_id": job.ID,
+		})
+	}
 }

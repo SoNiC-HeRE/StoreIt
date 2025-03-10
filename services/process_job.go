@@ -25,27 +25,26 @@ func ProcessJob(jobID string, visits []struct {
 	VisitTime string   `json:"visit_time"`
 }) {
 	ctx := context.Background()
-	var jobFailed bool
+	var jobErrors []models.JobError
 
 	// Process every visit and its images.
 	for _, visit := range visits {
-		// Here you can validate the store_id against Store Master.
-		// For now, we assume the store exists.
 		for _, url := range visit.ImageURLs {
-			// Download image dimensions.
 			width, height, err := utils.DownloadImage(url)
 			if err != nil {
-				log.Printf("Image download failed for store %s, URL %s: %v", visit.StoreID, url, err)
-				jobFailed = true
-				// Continue processing other images.
+				// Append an error record for this store.
+				jobErrors = append(jobErrors, models.JobError{
+					StoreID: visit.StoreID,
+					Error:   "Image download failed", // You can include err.Error() if needed
+				})
 				continue
 			}
 
-			// Calculate perimeter and simulate GPU processing delay.
+			// Process image: calculate perimeter and simulate delay.
 			perimeter := utils.CalculatePerimeter(width, height)
 			utils.SimulateProcessingDelay()
 
-			// Create image record.
+			// Create and save image record.
 			img := models.Image{
 				JobID:     jobID,
 				StoreID:   visit.StoreID,
@@ -54,18 +53,25 @@ func ProcessJob(jobID string, visits []struct {
 				Status:    "completed",
 			}
 			if err := data.SaveImage(ctx, img); err != nil {
-				log.Printf("Failed to save image for store %s: %v", visit.StoreID, err)
-				jobFailed = true
+				jobErrors = append(jobErrors, models.JobError{
+					StoreID: visit.StoreID,
+					Error:   "Failed to save image record",
+				})
 			}
 		}
 	}
 
-	// Update job status based on processing outcome.
-	if jobFailed {
-		data.UpdateJobStatus(jobID, "failed")
-		log.Printf("Job %s marked as failed due to one or more errors.", jobID)
+	// Update job status based on errors.
+	if len(jobErrors) > 0 {
+		// Update job as failed with error details.
+		if err := data.UpdateJobStatusWithErrors(jobID, "failed", jobErrors); err != nil {
+			log.Printf("Failed to update job status with errors for job %s: %v", jobID, err)
+		}
+		log.Printf("Job %s marked as failed due to errors.", jobID)
 	} else {
-		data.UpdateJobStatus(jobID, "completed")
+		if err := data.UpdateJobStatus(jobID, "completed"); err != nil {
+			log.Printf("Failed to update job status for job %s: %v", jobID, err)
+		}
 		log.Printf("Job %s completed successfully.", jobID)
 	}
 }
