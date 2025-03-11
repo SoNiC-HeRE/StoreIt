@@ -24,8 +24,8 @@ The Storeit Image Processing Service is a backend application written in Go that
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/retail-pulse-service.git
-   cd storeit
+   git clone https://github.com/SoNiC-HeRE/StoreIt
+   cd Storeit
    ```
 
 2. Configure Environment Variables:
