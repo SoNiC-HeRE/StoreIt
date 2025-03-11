@@ -15,7 +15,10 @@ The Storeit Image Processing Service is a backend application written in Go that
 ## Installing and Testing Instructions
 
 ### Prerequisites
-
+- [Go](https://go.dev/doc/install)
+- Store Master data to be prepopulated within mongodb instance with collection name 'store_master'
+- [VS Code](https://code.visualstudio.com/download)
+- [Postman](https://www.postman.com/downloads/)
 - [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your machine.
 - (Optional) MongoDB Compass for verifying database content.
 
@@ -67,6 +70,7 @@ POST http://localhost:8080/api/submit/
 ```
 
 Request Payload Example:
+(NOTE: Passed store id should match one of the store id provided in csv else req will fail)
 
 ```json
 {
