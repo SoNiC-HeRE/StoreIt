@@ -31,9 +31,9 @@ The Storeit Image Processing Service is a backend application written in Go that
 2. Configure Environment Variables:
 Create a .env file in the root directory with the following content:
 
-```bash
-MONGO_URI=mongodb://mongo:27017
-```
+    ```bash
+    MONGO_URI=mongodb://mongo:27017
+    ```
 
 3. Import the Store Master CSV Data:
 
