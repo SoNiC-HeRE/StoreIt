@@ -144,4 +144,10 @@ The response will include the job status (ongoing, completed, or failed) along w
 - Monitoring: Integrate monitoring and alerting (e.g., Prometheus, Grafana) to track job processing metrics and system performance.
 - Scalability: Explore container orchestration (e.g., Kubernetes) for horizontal scaling as the load increases.
 
+### Live Demo:
+1. Using Terminal:
+
+2. Using Docker:
+
+
 <hr/>
