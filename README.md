@@ -41,7 +41,7 @@ Create a .env file in the root directory with the following content:
 
 4. Build and Run the Application:
 
-Run the following command to build and start the services using Docker Compose:
+    Run the following command to build and start the services using Docker Compose:
 
     ```bash
     docker-compose up --build
