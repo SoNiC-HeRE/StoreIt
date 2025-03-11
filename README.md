@@ -39,7 +39,7 @@ Create a .env file in the root directory with the following content:
 
     Use a tool like MongoDB Compass to import your CSV data into the stores collection in MongoDB. The CSV should contain columns for store_id, store_name, and area_code.
 
-4. Build and Run the Application:
+4. Build and Run the Application: (Docker)
 
     Run the following command to build and start the services using Docker Compose:
 
@@ -47,6 +47,15 @@ Create a .env file in the root directory with the following content:
     docker-compose up --build
     ```
 This will build the Go application (using a Go 1.20 base image) and start a MongoDB container. Your application will be accessible at http://localhost:8080.
+
+5. Build and Run the Application: (Go)
+
+    Run the following command to build and start the services using Docker Compose:
+
+    ```bash
+    go run main.go
+    ```
+Wait for some time and your application will be accessible at http://localhost:8080.
 
 ### Testing
 Submit a Job:
