@@ -148,11 +148,55 @@ The response will include the job status (ongoing, completed, or failed) along w
 - Monitoring: Integrate monitoring and alerting (e.g., Prometheus, Grafana) to track job processing metrics and system performance.
 - Scalability: Explore container orchestration (e.g., Kubernetes) for horizontal scaling as the load increases.
 
-### Live Demo:
-1. Using Terminal:
-loom.com/share/0067c70d84ca47118c444aa9ab179043
+### Working Demo:
+1. [Using Go CLI](loom.com/share/0067c70d84ca47118c444aa9ab179043)
 
-2. Using Docker:
+2. [Using Docker](
+loom.com/share/880918d8396d4063b49e55b4e4aec6ae)
 
+### Screenshots:
+- POST Req (Success):
 
+![alt text](image.png)
+
+- POST Req (Count and Len mismatch):
+
+![alt text](image-1.png)
+
+- POST Req (Missing store id field):
+
+![alt text](image-2.png)
+
+- POST Req (Missing image_url field):
+
+![alt text](image-3.png)
+
+- GET Req (Success):
+
+![alt text](image-4.png)
+
+- GET Req (Invalid Store Id):
+
+![alt text](image-5.png)
+
+- GET Req (Invalid Image Url):
+
+![alt text](image-6.png)
+
+- GET Req (Invalid Job Id):
+
+![alt text](image-7.png)
+
+- MongoDB Collections:
+    - Images
+
+    ![alt text](image-8.png)
+
+    - Jobs
+
+    ![alt text](image-9.png)
+
+    - Store Master (Imported data from csv)
+    
+    ![alt text](image-10.png)
 <hr/>
