@@ -130,7 +130,7 @@ The response will include the job status (ongoing, completed, or failed) along w
 - Enhanced Error Reporting: Implement detailed logging and error reporting (e.g., storing error messages for each failed image in the database).
 - Worker Pool: Implement a worker pool for concurrent image processing to efficiently handle thousands of images.
 - Rate Limiting & Security: Add rate limiting and authentication/authorization for the API endpoints.
-- Testing: Increase unit and integration test coverage for the application.
+- Testing: Add unit and integration test coverage for the application.
 - Configuration Management: Use a configuration library (e.g., Viper) for more flexible configuration management.
 - Monitoring: Integrate monitoring and alerting (e.g., Prometheus, Grafana) to track job processing metrics and system performance.
 - Scalability: Explore container orchestration (e.g., Kubernetes) for horizontal scaling as the load increases.
