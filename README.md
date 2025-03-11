@@ -16,7 +16,7 @@ The Storeit Image Processing Service is a backend application written in Go that
 
 ### Prerequisites
 - [Go](https://go.dev/doc/install)
-- Store Master data to be prepopulated within mongodb instance with collection name 'store_master'
+- Store Master data (StoreMasterAssignment.csv) to be prepopulated within mongodb instance with collection name 'store_master'
 - [VS Code](https://code.visualstudio.com/download)
 - [Postman](https://www.postman.com/downloads/)
 - [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your machine.
@@ -40,7 +40,7 @@ Create a .env file in the root directory with the following content:
 
 3. Import the Store Master CSV Data:
 
-    Use a tool like MongoDB Compass to import your CSV data into the stores collection in MongoDB. The CSV should contain columns for store_id, store_name, and area_code.
+    Use a tool like MongoDB Compass to import your CSV data (StoreMasterAssignment.csv) into the store_master collection in MongoDB. The CSV should contain columns for store_id, store_name, and area_code.
 
 4. Build and Run the Application: (Docker)
 
@@ -197,6 +197,6 @@ loom.com/share/880918d8396d4063b49e55b4e4aec6ae)
     ![alt text](image-9.png)
 
     - Store Master (Imported data from csv)
-    
+
     ![alt text](image-10.png)
 <hr/>
