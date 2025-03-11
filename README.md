@@ -150,6 +150,7 @@ The response will include the job status (ongoing, completed, or failed) along w
 
 ### Live Demo:
 1. Using Terminal:
+loom.com/share/0067c70d84ca47118c444aa9ab179043
 
 2. Using Docker:
 
