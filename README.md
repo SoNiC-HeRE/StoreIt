@@ -24,12 +24,20 @@ The Storeit Image Processing Service is a backend application written in Go that
 
 ### Setup
 
-1. **Clone the Repository:**
+1. **Clone the Repository:** (If using git)
 
    ```bash
    git clone https://github.com/SoNiC-HeRE/StoreIt
    cd Storeit
    ```
+
+   or
+   **If using rar file** 
+   
+   ```bash
+   extract provided rar file and cd into it 
+   ```
+
 
 2. Configure Environment Variables:
 Create a .env file in the root directory with the following content:
