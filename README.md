@@ -56,6 +56,7 @@ This will build the Go application (using a Go 1.20 base image) and start a Mong
     Run the following command to build and start the services using Docker Compose:
 
     ```bash
+    go mod tidy
     go run main.go
     ```
 Wait for some time and your application will be accessible at http://localhost:8080.
