@@ -43,9 +43,9 @@ Create a .env file in the root directory with the following content:
 
 Run the following command to build and start the services using Docker Compose:
 
-```bash
-docker-compose up --build
-```
+    ```bash
+    docker-compose up --build
+    ```
 This will build the Go application (using a Go 1.20 base image) and start a MongoDB container. Your application will be accessible at http://localhost:8080.
 
 ### Testing
