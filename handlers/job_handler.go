@@ -8,44 +8,52 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
-	"storeit/database"       // Exposes JobCollection
-	"storeit/models"
-	"storeit/data"     // Contains CreateJob and UpdateJobStatus functions
-	"storeit/services" // Contains ProcessJob
+	"storeit/database"   // Exposes JobCollection
+	"storeit/data"       // Contains CreateJob, UpdateJobStatus functions, and store validation
+	"storeit/models"     // Contains Job, Visit, and JobError definitions
+	"storeit/services"   // Contains ProcessJob for background processing
 )
 
 // SubmitJob handles the job submission endpoint.
+// It validates the incoming request, creates a job record (with failed status if any store is invalid),
+// and triggers background processing for valid jobs.
 func SubmitJob(c *gin.Context) {
+	// Define the request structure.
 	var request struct {
 		Count  int            `json:"count"`
 		Visits []models.Visit `json:"visits"`
 	}
 
-	// Bind JSON
+	// Bind incoming JSON to the request structure.
 	if err := c.BindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
 		return
 	}
 
+	// Validate that the count matches the number of visits.
 	if len(request.Visits) != request.Count {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Count does not match the number of visits"})
 		return
 	}
 
-	// Collect any invalid store errors
+	// Prepare a slice to collect invalid store errors.
 	var invalidVisits []models.JobError
 
-	// Validate each visit
+	// Iterate over each visit to validate required fields.
 	for i, visit := range request.Visits {
+		// Check that store_id is provided.
 		if visit.StoreID == "" {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "store_id is mandatory for each visit"})
 			return
 		}
+
+		// Check that at least one image URL is provided.
 		if len(visit.ImageURLs) == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "image_url is mandatory for each visit"})
 			return
 		}
-		// Validate store_id exists in the stores collection
+
+		// Validate that the store exists.
 		valid, err := data.IsValidStore(visit.StoreID)
 		if err != nil || !valid {
 			invalidVisits = append(invalidVisits, models.JobError{
@@ -53,13 +61,14 @@ func SubmitJob(c *gin.Context) {
 				Error:   "Invalid store id",
 			})
 		}
-		// If visit_time is empty, fill with current timestamp
+
+		// If visit_time is not provided, assign the current timestamp.
 		if visit.VisitTime == "" {
 			request.Visits[i].VisitTime = time.Now().Format(time.RFC3339)
 		}
 	}
 
-	// If there are any invalid store IDs, create a failed job and return its id.
+	// If any store IDs are invalid, create a job with "failed" status and return its ID.
 	if len(invalidVisits) > 0 {
 		job := models.Job{
 			ID:        uuid.NewString(),
@@ -75,7 +84,7 @@ func SubmitJob(c *gin.Context) {
 		return
 	}
 
-	// Otherwise, create the job record with status "ongoing".
+	// Create a job record with status "ongoing" for valid requests.
 	job := models.Job{
 		ID:        uuid.NewString(),
 		Status:    "ongoing",
@@ -86,23 +95,28 @@ func SubmitJob(c *gin.Context) {
 		return
 	}
 
-	// Start background processing.
+	// Trigger background processing of the job.
 	go services.ProcessJob(job.ID, request.Visits)
 
+	// Return the job ID in the response.
 	c.JSON(http.StatusCreated, gin.H{"job_id": job.ID})
 }
 
-// GetJobStatus returns the status (and errors, if any) of a given job.
+// GetJobStatus returns the status and any error details of a given job.
+// It retrieves the job from MongoDB using the provided job ID.
 func GetJobStatus(c *gin.Context) {
+	// Extract the jobid query parameter.
 	jobID := c.Query("jobid")
 	var job models.Job
 
+	// Find the job in the database.
 	err := db.JobCollection.FindOne(context.TODO(), bson.M{"_id": jobID}).Decode(&job)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"Error": "Job not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Job not found"})
 		return
 	}
 
+	// Build the response structure.
 	resp := models.JobStatusResponse{
 		Status: job.Status,
 		JobID:  job.ID,

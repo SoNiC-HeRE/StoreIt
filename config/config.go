@@ -1,19 +1,25 @@
 package config
 
 import (
-	"os"
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 )
 
+// LoadEnv loads environment variables from a .env file.
+// If the .env file is not found, it logs a message and falls back to system environment variables.
 func LoadEnv() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("No .env file found, using system environment variables")
+	if err := godotenv.Load(); err != nil {
+		log.Println("Warning: No .env file found, using system environment variables")
 	}
 }
 
+// GetMongoURI returns the MongoDB connection URI from the environment variables.
 func GetMongoURI() string {
-	return os.Getenv("MONGO_URI")
+	uri := os.Getenv("MONGO_URI")
+	if uri == "" {
+		log.Fatal("MONGO_URI is not set in environment variables")
+	}
+	return uri
 }
