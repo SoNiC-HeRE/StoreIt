@@ -25,19 +25,19 @@ The Storeit Image Processing Service is a backend application written in Go that
 
    ```bash
    git clone https://github.com/yourusername/retail-pulse-service.git
-   cd retail-pulse-service
+   cd storeit
    ```
 
 2. Configure Environment Variables:
 Create a .env file in the root directory with the following content:
 
     ```bash
-    MONGO_URI=mongodb://mongo:27017
+    MONGO_URI=''
     ```
 
 3. Import the Store Master CSV Data:
 
-Use the provided Go script (import_stores.go) or a tool like MongoDB Compass to import your CSV data into the stores collection in MongoDB. The CSV should contain columns for store_id, store_name, and area_code.
+    Use the provided Go script (import_stores.go) or a tool like MongoDB Compass to import your CSV data into the stores collection in MongoDB. The CSV should contain columns for store_id, store_name, and area_code.
 
 4. Build and Run the Application:
 
@@ -45,8 +45,8 @@ Run the following command to build and start the services using Docker Compose:
 
 ```bash
 docker-compose up --build
-This will build the Go application (using a Go 1.20 base image) and start a MongoDB container. Your application will be accessible at http://localhost:8080.
 ```
+This will build the Go application (using a Go 1.20 base image) and start a MongoDB container. Your application will be accessible at http://localhost:8080.
 
 ### Testing
 Submit a Job:
