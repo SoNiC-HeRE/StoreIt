@@ -158,46 +158,46 @@ loom.com/share/880918d8396d4063b49e55b4e4aec6ae)
 ### Screenshots:
 - POST Req (Success):
 
-![alt text](image.png)
+![alt text](screenshots/image.png)
 
 - POST Req (Count and Len mismatch):
 
-![alt text](image-1.png)
+![alt text](screenshots/image-1.png)
 
 - POST Req (Missing store id field):
 
-![alt text](image-2.png)
+![alt text](screenshots/image-2.png)
 
 - POST Req (Missing image_url field):
 
-![alt text](image-3.png)
+![alt text](screenshots/image-3.png)
 
 - GET Req (Success):
 
-![alt text](image-4.png)
+![alt text](screenshots/image-4.png)
 
 - GET Req (Invalid Store Id):
 
-![alt text](image-5.png)
+![alt text](screenshots/image-5.png)
 
 - GET Req (Invalid Image Url):
 
-![alt text](image-6.png)
+![alt text](screenshots/image-6.png)
 
 - GET Req (Invalid Job Id):
 
-![alt text](image-7.png)
+![alt text](screenshots/image-7.png)
 
 - MongoDB Collections:
     - Images
 
-    ![alt text](image-8.png)
+    ![alt text](screenshots/image-8.png)
 
     - Jobs
 
-    ![alt text](image-9.png)
+    ![alt text](screenshots/image-9.png)
 
     - Store Master (Imported data from csv)
 
-    ![alt text](image-10.png)
+    ![alt text](screenshots/image-10.png)
 <hr/>
