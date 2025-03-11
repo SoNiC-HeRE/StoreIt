@@ -37,7 +37,7 @@ Create a .env file in the root directory with the following content:
 
 3. Import the Store Master CSV Data:
 
-    Use the provided Go script (import_stores.go) or a tool like MongoDB Compass to import your CSV data into the stores collection in MongoDB. The CSV should contain columns for store_id, store_name, and area_code.
+    Use a tool like MongoDB Compass to import your CSV data into the stores collection in MongoDB. The CSV should contain columns for store_id, store_name, and area_code.
 
 4. Build and Run the Application:
 
