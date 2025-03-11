@@ -43,7 +43,7 @@ Create a .env file in the root directory with the following content:
     Use a tool like MongoDB Compass to import your CSV data (StoreMasterAssignment.csv) into the store_master collection in MongoDB. The CSV should contain columns for store_id, store_name, and area_code.
 
 4. Build and Run the Application: (Docker)
-
+    Make sure docker engine is running.
     Run the following command to build and start the services using Docker Compose:
 
     ```bash
