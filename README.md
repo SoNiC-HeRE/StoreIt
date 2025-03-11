@@ -150,10 +150,9 @@ The response will include the job status (ongoing, completed, or failed) along w
 - Scalability: Explore container orchestration (e.g., Kubernetes) for horizontal scaling as the load increases.
 
 ### Working Demo:
-1. [Using Go CLI](loom.com/share/0067c70d84ca47118c444aa9ab179043)
+1. [Using Go CLI](https://www.loom.com/share/0067c70d84ca47118c444aa9ab179043)
 
-2. [Using Docker](
-loom.com/share/880918d8396d4063b49e55b4e4aec6ae)
+2. [Using Docker](https://www.loom.com/share/880918d8396d4063b49e55b4e4aec6ae)
 
 ### Screenshots:
 - POST Req (Success):
